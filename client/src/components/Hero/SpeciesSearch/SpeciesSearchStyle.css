@@ -1,0 +1,38 @@
+.ui.container.card--container--search{
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr ;
+  text-align: center;
+  padding-right: 60px;
+}
+
+.ui.card.CardStyle--search{
+  box-shadow: inset 0px 0px 4px 0.5px black;
+  width: 200px;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 5px;
+  background-color: white;
+  text-align: center;
+  transition: transform .2s;
+  text-decoration: none;
+  color: black;
+}
+
+.ui.card.CardStyle--search:hover{
+  cursor: pointer;
+  transform: scale(1.05)
+}
+
+.ui.image.CardStyle__img--search{
+  object-fit: cover;
+  width: 200px;
+  height: 180px;
+  border-radius: 5px;
+
+}
+
+.CardStyle--content--search{
+  padding: 5px;
+  font-size: 15px;
+  font-weight: 400;
+}

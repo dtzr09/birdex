@@ -1,0 +1,57 @@
+.EntriesContainer{
+  display: flex;
+  height: 100vh;
+  background: url("https://images.unsplash.com/photo-1455218873509-8097305ee378?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80")
+  center center
+  no-repeat;
+  background-size: cover;
+}
+
+.ui.table.EntriesTable{
+  width: 100%;
+  height: 600px;
+  overflow-y: scroll;
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 80px;
+  background-color: rgba(255,255,255,0.7);
+}
+
+.ui.celled.table tr td{
+  text-align: center;
+}
+
+.ui.table thead tr>th{
+  width: 300px;
+}
+
+tr.EntriesTableRow{
+  height: 10px !important; 
+}
+
+.ui.button.showmodal--button{
+  position: absolute;
+  right:0;
+  margin: 20px;
+}
+
+i.edit.big.icon.edit-button{
+  font-size: 1.5em;
+  cursor: pointer;
+}  
+
+i.red.big.icon.delete-button{
+  font-size: 1.5em;
+  cursor: pointer;
+}  
+
+button.ui.icon.left.labeled.button{
+  position: absolute;
+  bottom: 0;
+  margin-left: 250px;
+  margin-bottom: 60px;
+}
+
+
+
