@@ -34,6 +34,12 @@ export const SingleSpeciesImage = styled.img `
   border-radius: 20px 0 0 20px;
   background-position: center center;
 `
+export const SingleSpeciesNameWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+`
 
 export const SingleSpeciesContent = styled.div `
   display: flex;
@@ -49,7 +55,8 @@ export const SingleSpeciesName = styled.h1  `
 
 export const SingleSpeciesDescription = styled.p `
   font-size: 16px;
-
+  max-height: 300px;
+  overflow-y: scroll;
 `
 
 export const DeleteButton = styled.button `
@@ -65,14 +72,4 @@ export const DeleteButton = styled.button `
   border-radius: 5px;
 `
 
-export const UpdateButton = styled.button `
-  position: absolute;
-  right: 10%;
-  font-size: 15px;
-  color: white;
-  padding: 5px;
-  border: none;
-  margin: 10px;
-  cursor: pointer;
-  border-radius: 5px;
-`
+

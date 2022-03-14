@@ -1,18 +1,18 @@
-.members__wrapper{
+.members__wrapper {
   position: absolute;
   right: 0;
   display: flex;
   align-items: center;
   width: 100%;
   max-width: 1000px;
-  height: 300px;
+  max-height: 300px;
   margin-top: 60px;
   margin-bottom: 40px;
   background-color: rgba(0, 0, 0, 0.4);
   border-radius: 100px 0 0 100px;
 }
 
-.container__title{
+.container__title {
   font-size: 22px;
   color: rgb(194, 181, 181);
   padding: 10px;
@@ -20,7 +20,7 @@
   margin-left: 10px;
 }
 
-.ui.container.birdStyleContainer{
+.ui.container.birdStyleContainer {
   display: flex;
   align-items: center;
   overflow-y: scroll;
@@ -28,11 +28,11 @@
 }
 
 /* removes the scrolllbar */
-.ui.container.birdStyleContainer::-webkit-scrollbar{
+.ui.container.birdStyleContainer::-webkit-scrollbar {
   display: none;
 }
 
-a.ui.card.Card--birdStyle{
+a.ui.card.Card--birdStyle {
   cursor: pointer;
   text-align: center;
   text-decoration: none;
@@ -44,12 +44,12 @@ a.ui.card.Card--birdStyle{
   margin-left: 15px;
 }
 
-.ui.card.Card--birdStyle:hover{
+.ui.card.Card--birdStyle:hover {
   background-color: transparent;
   box-shadow: none;
 }
 
-.div.img--wrapper{
+.div.img--wrapper {
   display: flex;
   justify-content: center;
   text-align: center;
@@ -57,20 +57,20 @@ a.ui.card.Card--birdStyle{
   height: 140px;
 }
 
-.ui.image.bird__img{
+.ui.image.bird__img {
   width: 200px;
   border-radius: 40px;
   background-position: center center;
 }
 
-.ui.content.bird--content{
+.ui.content.bird--content {
   font-size: 20px;
   margin-top: 10px;
   padding: 5px;
   margin-right: 10px;
 }
 
-.AddBirdButton{
+.AddBirdButton {
   position: absolute;
   bottom: 0;
   right: 0;
@@ -80,9 +80,9 @@ a.ui.card.Card--birdStyle{
   border: none;
   border-radius: 5px;
   opacity: 0.8;
-  transition: all 0.2s ease 
+  transition: all 0.2s ease;
 }
 
-.AddBirdButton:hover{
+.AddBirdButton:hover {
   opacity: 1;
 }

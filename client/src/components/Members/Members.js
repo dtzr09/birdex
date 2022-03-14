@@ -24,7 +24,6 @@ function Members(id) {
   }, []);
 
   const members = [...new Set(allmembers.map(birds => birds))]
-  console.log(members)
 
   //MUST INCLUDE RETURN IF NOT NTH WILL BE SHOWN
   const data = members.map((bird) => {

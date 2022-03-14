@@ -21,6 +21,7 @@ import {
   SingleSpeciesDescription,
   SingleSpeciesPageWrapper,
   DeleteButton,
+  SingleSpeciesNameWrapper,
 } from "./SingleSpeciesPageStyle";
 
 function SingleSpeciesPage({ match }) {
@@ -48,7 +49,6 @@ function SingleSpeciesPage({ match }) {
     };
     getFamily();
   }, [match.params.name]);
-  
 
   //FOR DELETING SPECIES
   const deleteSpecies = async (id) => {
@@ -194,7 +194,70 @@ function SingleSpeciesPage({ match }) {
               <SingleSpeciesWrapper>
                 <SingleSpeciesImage src={family.speciesimg} />
                 <SingleSpeciesContent>
-                  <SingleSpeciesName>{family.speciesname}</SingleSpeciesName>
+                  <SingleSpeciesNameWrapper>
+                    <SingleSpeciesName>{family.speciesname}</SingleSpeciesName>
+
+                    {/* MODAL TO UPDATE SPECIES*/}
+                    <Modal
+                      size={"large"}
+                      onClose={() => setOpen(false)}
+                      onOpen={() => setOpen(true)}
+                      open={open}
+                      trigger={
+                        <Button
+                          className="update--showmodal--button"
+                          style={{
+                            height: "45px",
+                            cursor: "pointer",
+                            zIndex: 999,
+                          }}
+                        >
+                          Update Species
+                        </Button>
+                      }
+                    >
+                      <Modal.Header>Update Species</Modal.Header>
+                      <Modal.Content image>
+                        <Image size="large" src={Img} wrapped />
+                        <Modal.Description
+                          style={{
+                            display: "flex",
+                            flexDirection: "column",
+                            width: "100%",
+                          }}
+                        >
+                          <Form>
+                            <TextArea
+                              placeholder="Enter description"
+                              defaultValue={family.speciesdesc || Description}
+                              onChange={(e) =>
+                                setNewDescription(e.target.value)
+                              }
+                              style={{
+                                marginBottom: "30px",
+                                height: "150px",
+                                width: "100%",
+                              }}
+                            />
+                          </Form>
+                          <Input
+                            placeholder="Enter Image Address"
+                            defaultValue={family.speciesimg || Img}
+                            onChange={(e) => setNewImg(e.target.value)}
+                          />
+                        </Modal.Description>
+                      </Modal.Content>
+                      <Modal.Actions>
+                        <Button
+                          content="Update"
+                          labelPosition="right"
+                          icon="checkmark"
+                          onClick={HandleUpdate}
+                          positive
+                        />
+                      </Modal.Actions>
+                    </Modal>
+                  </SingleSpeciesNameWrapper>
                   <SingleSpeciesDescription>
                     {family.speciesdesc}
                   </SingleSpeciesDescription>
@@ -219,59 +282,6 @@ function SingleSpeciesPage({ match }) {
           return <h1>Loading</h1>;
         }
       })()}
-
-      {/* MODAL TO UPDATE SPECIES*/}
-      <Modal
-        size={"large"}
-        onClose={() => setOpen(false)}
-        onOpen={() => setOpen(true)}
-        open={open}
-        trigger={
-          <Button
-            className="update--showmodal--button"
-            style={{
-              position: "absolute",
-              right: 0,
-              margin: "130px 100px 130px 130px",
-              cursor: "pointer",
-              zIndex: 999,
-            }}
-          >
-            Update Species
-          </Button>
-        }
-      >
-        <Modal.Header>Update Species</Modal.Header>
-        <Modal.Content image>
-          <Image size="large" src={Img} wrapped />
-          <Modal.Description
-            style={{ display: "flex", flexDirection: "column", width: "100%" }}
-          >
-            <Form>
-              <TextArea
-                placeholder="Enter description"
-                defaultValue={family.speciesdesc || Description}
-                onChange={(e) => setNewDescription(e.target.value)}
-                style={{ marginBottom: "30px", height: "150px", width: "100%" }}
-              />
-            </Form>
-            <Input
-              placeholder="Enter Image Address"
-              defaultValue={family.speciesimg || Img}
-              onChange={(e) => setNewImg(e.target.value)}
-            />
-          </Modal.Description>
-        </Modal.Content>
-        <Modal.Actions>
-          <Button
-            content="Update"
-            labelPosition="right"
-            icon="checkmark"
-            onClick={HandleUpdate}
-            positive
-          />
-        </Modal.Actions>
-      </Modal>
 
       {/* Modal TO ADD NEW BIRD*/}
       <Modal
