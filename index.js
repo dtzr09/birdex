@@ -63,6 +63,11 @@ app.get("/species/:name", async (req, res) => {
   try {
     const { name } = req.params;
     const familyId = await pool.query(advance_query, [name]);
+
+    res.header("Cache-Control", "no-cache, no-store, must-revalidate");
+    res.header("Pragma", "no-cache");
+    res.header("Expires", 0);
+
     res.json(familyId.rows);
   } catch (err) {
     console.log(err.message);
@@ -154,7 +159,7 @@ app.get("/birds/:name/:id/:species_name/entries", async (req, res) => {
     res.header("Cache-Control", "no-cache, no-store, must-revalidate");
     res.header("Pragma", "no-cache");
     res.header("Expires", 0);
-    
+
     res.json(birdEntries.rows);
   } catch (err) {
     console.log(err.message);
