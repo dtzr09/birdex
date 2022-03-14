@@ -180,8 +180,6 @@ add_bird_query = `WITH ins AS (
                 `;
 app.post("/species/:name", async (req, res) => {
   try {
-    console.log(req.params);
-    console.log(req.body);
     const { name } = req.params;
     const { bird_name, img, created_at, species_id, weight } = req.body;
     const newbird = await pool.query(add_bird_query, [
@@ -193,7 +191,12 @@ app.post("/species/:name", async (req, res) => {
       weight,
     ]);
 
+    res.header("Cache-Control", "no-cache, no-store, must-revalidate");
+    res.header("Pragma", "no-cache");
+    res.header("Expires", 0);
+
     res.json(newbird.rows);
+    
   } catch (err) {
     console.error(err.message);
   }

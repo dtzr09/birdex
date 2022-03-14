@@ -146,7 +146,7 @@ function SingleSpeciesPage({ match }) {
           bird_id: family.birdsid,
         }),
       });
-      history.go(0);
+      window.location.reload();
     } catch (err) {
       console.error(err.message);
     }
