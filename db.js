@@ -10,9 +10,9 @@ const pool = new Pool({
     process.env.NODE_ENV === "production" ? proConfig : devConfig,
 
   // ONLY USED FOR PRODUCTION (OFF WHEN DEVELOPING)
-  // ssl: {
-  //   rejectUnauthorized: false,
-  // },
+  ssl: {
+    rejectUnauthorized: false,
+  },
 });
 
 module.exports = pool;
