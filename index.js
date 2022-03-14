@@ -98,6 +98,11 @@ app.put("/species/:name", async (req, res) => {
       "UPDATE speciesdata SET description = $1, img = $2 WHERE name = $3",
       [description, img, name]
     );
+
+    res.header("Cache-Control", "no-cache, no-store, must-revalidate");
+    res.header("Pragma", "no-cache");
+    res.header("Expires", 0);
+
     res.json(updatespecies);
   } catch (err) {
     console.log(err.message);
@@ -126,6 +131,11 @@ app.get("/birds/:name/:id", async (req, res) => {
       req.params.name,
       req.params.id,
     ]);
+
+    res.header("Cache-Control", "no-cache, no-store, must-revalidate");
+    res.header("Pragma", "no-cache");
+    res.header("Expires", 0);
+
     res.json(birdsdata.rows);
   } catch (err) {
     console.log(err.message);
@@ -140,6 +150,11 @@ app.get("/birds/:name/:id/:species_name/entries", async (req, res) => {
       "SELECT * FROM entries WHERE bird_name = $1 AND species_name = $2 ORDER BY created_at DESC",
       [name, species_name]
     );
+
+    res.header("Cache-Control", "no-cache, no-store, must-revalidate");
+    res.header("Pragma", "no-cache");
+    res.header("Expires", 0);
+    
     res.json(birdEntries.rows);
   } catch (err) {
     console.log(err.message);

@@ -11,11 +11,10 @@ const pool = new Pool({
       ? proConfig
       : devConfig,
 
-  // ONLY USED FOR PRODUCTION
-  ssl: {
-    rejectUnauthorized: false
-  }
+  // ONLY USED FOR PRODUCTION (OFF WHEN DEVELOPING)
+  // ssl: {
+  //   rejectUnauthorized: false
+  // }
 });
 
 module.exports = pool;
-
