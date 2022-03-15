@@ -13,7 +13,10 @@ function EntriesPage({ match }) {
   const [open, setOpen] = useState(false);
   const [weightinput, setWeight] = useState(0);
   const currentDate =
-    ts.toLocaleDateString("en-US") + " " + ts.toLocaleTimeString("en-US");
+    ts.toLocaleDateString("en-US").slice(0, -4) +
+    ts.toLocaleDateString("en-US").slice(-2) +
+    " " +
+    ts.toLocaleTimeString("en-US");
 
   //State of modal that updates entry
   const [open2, setOpen2] = useState(false);
@@ -134,13 +137,12 @@ function EntriesPage({ match }) {
     window.location.reload();
   };
 
-  console.log(entry);
   //DISPLAYING ALL ENTRIES JSX
   const entries = entry.map((details) => {
     return (
       <Table.Body key={details.entry_id} style={{ textAlign: "center" }}>
         <Table.Row className="EntriesTableRow">
-          <Table.Cell className="test">{details.created_at}</Table.Cell>
+          <Table.Cell>{details.created_at}</Table.Cell>
           <Table.Cell>{details.weight}</Table.Cell>
           <Table.Cell>
             <Icon
@@ -176,7 +178,13 @@ function EntriesPage({ match }) {
       <div className="EntriesWrapper">
         <Table celled className="EntriesTable">
           <Table.Header>
-            <Table.Row style={{ textAlign: "center"}}>
+            <Table.Row
+              style={{
+                textAlign: "center",
+                position: "fixed",
+                maxWidth: "898px",
+              }}
+            >
               <Table.HeaderCell>TimeStamp</Table.HeaderCell>
               <Table.HeaderCell>Weight</Table.HeaderCell>
               <Table.HeaderCell>Edit</Table.HeaderCell>

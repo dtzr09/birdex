@@ -6,7 +6,7 @@
   background-size: cover;
 }
 
-.EntriesWrapper{
+.EntriesWrapper {
   max-height: 500px;
   overflow-y: scroll;
   width: 100%;
@@ -16,26 +16,27 @@
   margin-top: 80px;
 }
 
-.ui.table.EntriesTable {
-  background-color: rgba(255, 255, 255, 0.7);
+.EntriesWrapper::-webkit-scrollbar {
+  display:none;
 }
 
-.ui.celled.table tr td {
-  text-align: center;
+.ui.table.EntriesTable {
+  background-color: rgba(255, 255, 255, 0.7);
 }
 
 .ui.table thead tr > th {
   width: 300px;
 }
 
-.EntriesTableRow {
-  max-height: 10px !important;
+.ui.table tbody tr > td {
+  width: 300px;
+  font-size: 18px;
 }
 
 .ui.button.showmodal--button {
   position: absolute;
   right: 0;
-  margin: 20px;
+  margin: 25px;
 }
 
 i.edit.big.icon.edit-button {
