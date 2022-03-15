@@ -28,26 +28,25 @@ function SingleSpeciesPage({ match }) {
   const [open, setOpen] = useState(false);
 
   const history = useHistory();
+  const [Description, setNewDescription] = useState("");
+  const [Img, setNewImg] = useState("");
 
   //FOR GETTING ONE SPECIES
   const [family, setFamily] = useState("");
-  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const getFamily = async () => {
       try {
-        setLoading(true);
-
         const response = await fetch(`/species/${match.params.name}`);
         const jsonData = await response.json();
         setFamily(jsonData[0]);
-
-        setLoading(false);
       } catch (err) {
         console.log(err);
       }
     };
     getFamily();
+    setNewDescription(family.speciesdesc);
+    setNewImg(family.speciesimg);
   }, [match.params.name]);
 
   //FOR DELETING SPECIES
@@ -68,9 +67,8 @@ function SingleSpeciesPage({ match }) {
   };
 
   //FOR UPDATING SPECIES
-  const [Description, setNewDescription] = useState("");
-  const [Img, setNewImg] = useState("");
 
+  //Upon submiting push it to the database and reload
   const onSubmitUpdate = async () => {
     try {
       const response = await fetch(`/species/${family.speciesname}`, {
@@ -81,22 +79,16 @@ function SingleSpeciesPage({ match }) {
           img: Img,
         }),
       });
-      history.goBack();
+      window.location.reload();
     } catch (err) {
       console.error(err.message);
     }
   };
 
-  //If description is null or img is null, set it to the previous value
-  const HandleUpdate = async () => {
-    if (Description == "") {
-      setNewDescription(family.speciesdesc);
-    } else if (Img == "") {
-      setNewImg(family.speciesimg);
-    } else {
-      onSubmitUpdate();
-      history.push(`/species/${family.speciesname}`);
-    }
+  // Run when click the button updatespecies to load up the default desc and img
+  const HandleUpdate = () => {
+    setNewDescription(family.speciesdesc);
+    setNewImg(family.speciesimg);
   };
 
   //SERVER SIDE TO GET ALL MEMBERS OF THE SINGLE SPECIES (required for the species id in order to add new bird )
@@ -187,102 +179,93 @@ function SingleSpeciesPage({ match }) {
       <DeleteButton onClick={() => deleteSpecies(family.speciesid)}>
         Delete Species
       </DeleteButton>
-      {(() => {
-        if (loading == false) {
-          return (
-            <SingleSpeciesContainer key={family.speciesid}>
-              <SingleSpeciesWrapper>
-                <SingleSpeciesImage src={family.speciesimg} />
-                <SingleSpeciesContent>
-                  <SingleSpeciesNameWrapper>
-                    <SingleSpeciesName>{family.speciesname}</SingleSpeciesName>
+      <SingleSpeciesContainer key={family.speciesid}>
+        <SingleSpeciesWrapper>
+          <SingleSpeciesImage src={family.speciesimg} />
+          <SingleSpeciesContent>
+            <SingleSpeciesNameWrapper>
+              <SingleSpeciesName>{family.speciesname}</SingleSpeciesName>
 
-                    {/* MODAL TO UPDATE SPECIES*/}
-                    <Modal
-                      size={"large"}
-                      onClose={() => setOpen(false)}
-                      onOpen={() => setOpen(true)}
-                      open={open}
-                      trigger={
-                        <Button
-                          className="update--showmodal--button"
-                          style={{
-                            height: "45px",
-                            cursor: "pointer",
-                            zIndex: 999,
-                          }}
-                        >
-                          Update Species
-                        </Button>
-                      }
-                    >
-                      <Modal.Header>Update Species</Modal.Header>
-                      <Modal.Content image>
-                        <Image size="large" src={Img} wrapped />
-                        <Modal.Description
-                          style={{
-                            display: "flex",
-                            flexDirection: "column",
-                            width: "100%",
-                          }}
-                        >
-                          <Form>
-                            <TextArea
-                              placeholder="Enter description"
-                              defaultValue={family.speciesdesc || Description}
-                              onChange={(e) =>
-                                setNewDescription(e.target.value)
-                              }
-                              style={{
-                                marginBottom: "30px",
-                                height: "150px",
-                                width: "100%",
-                              }}
-                            />
-                          </Form>
-                          <Input
-                            placeholder="Enter Image Address"
-                            defaultValue={family.speciesimg || Img}
-                            onChange={(e) => setNewImg(e.target.value)}
-                          />
-                        </Modal.Description>
-                      </Modal.Content>
-                      <Modal.Actions>
-                        <Button
-                          content="Update"
-                          labelPosition="right"
-                          icon="checkmark"
-                          onClick={HandleUpdate}
-                          positive
-                        />
-                      </Modal.Actions>
-                    </Modal>
-                  </SingleSpeciesNameWrapper>
-                  <SingleSpeciesDescription>
-                    {family.speciesdesc}
-                  </SingleSpeciesDescription>
-                </SingleSpeciesContent>
-              </SingleSpeciesWrapper>
-              <button
-                className="AddBirdButton"
-                onClick={() => setOpenBird(!openBird)}
+              {/* MODAL TO UPDATE SPECIES*/}
+              <Modal
+                size={"large"}
+                onClose={() => setOpen(false)}
+                onOpen={() => setOpen(true)}
+                open={open}
+                trigger={
+                  <Button
+                    className="update--showmodal--button"
+                    onClick={HandleUpdate}
+                    style={{
+                      maxHeight: "45px",
+                      cursor: "pointer",
+                      zIndex: 999,
+                    }}
+                  >
+                    Update Species
+                  </Button>
+                }
               >
-                Add New Bird
-              </button>
+                <Modal.Header>Update Species</Modal.Header>
+                <Modal.Content image>
+                  <Image size="large" src={Img} wrapped />
+                  <Modal.Description
+                    style={{
+                      display: "flex",
+                      flexDirection: "column",
+                      width: "100%",
+                    }}
+                  >
+                    <Form>
+                      <TextArea
+                        placeholder="Enter description"
+                        defaultValue={family.speciesdesc || Description}
+                        onChange={(e) => setNewDescription(e.target.value)}
+                        style={{
+                          marginBottom: "30px",
+                          height: "150px",
+                          width: "100%",
+                        }}
+                      />
+                    </Form>
+                    <Input
+                      placeholder="Enter Image Address"
+                      defaultValue={family.speciesimg || Img}
+                      onChange={(e) => setNewImg(e.target.value)}
+                    />
+                  </Modal.Description>
+                </Modal.Content>
+                <Modal.Actions>
+                  <Button
+                    content="Update"
+                    labelPosition="right"
+                    icon="checkmark"
+                    onClick={onSubmitUpdate}
+                    positive
+                  />
+                </Modal.Actions>
+              </Modal>
+            </SingleSpeciesNameWrapper>
+            <SingleSpeciesDescription>
+              {family.speciesdesc}
+            </SingleSpeciesDescription>
+          </SingleSpeciesContent>
+        </SingleSpeciesWrapper>
+        <button
+          className="AddBirdButton"
+          onClick={() => setOpenBird(!openBird)}
+        >
+          Add New Bird
+        </button>
 
-              {family.birdsid != null &&
-              family.birdsname != null &&
-              family.birdsimg != null &&
-              family.birdsspecies != null ? (
-                <Members name={family.speciesname} id={family.birdsid} />
-              ) : null}
-            </SingleSpeciesContainer>
-          );
-        } else {
-          return <h1>Loading</h1>;
-        }
-      })()}
-
+        {family.birdsid != null &&
+        family.birdsname != null &&
+        family.birdsimg != null &&
+        family.birdsspecies != null ? (
+          <Members name={family.speciesname} id={family.birdsid} />
+        ) : null}
+      </SingleSpeciesContainer>
+      );
       {/* Modal TO ADD NEW BIRD*/}
       <Modal
         onClose={() => setOpenBird(false)}

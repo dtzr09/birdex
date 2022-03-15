@@ -128,7 +128,7 @@ advance_query3 = `SELECT
                   e.weight,
                   b.img AS bird_image
                   FROM entries AS e
-                  LEFT JOIN birdsdata AS b on e.bird_name = b.name  
+                  LEFT JOIN birdsdata AS b on e.bird_name = b.name and e.bird_id = b.id  
                   WHERE e.bird_name = $1 and b.id = $2`;
 app.get("/birds/:name/:id", async (req, res) => {
   try {
@@ -196,7 +196,6 @@ app.post("/species/:name", async (req, res) => {
     res.header("Expires", 0);
 
     res.json(newbird.rows);
-    
   } catch (err) {
     console.error(err.message);
   }

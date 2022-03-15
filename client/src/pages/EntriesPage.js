@@ -1,14 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Nav from "../components/Navbar/Nav";
-import {
-  Icon,
-  Menu,
-  Table,
-  Button,
-  Modal,
-  Input,
-  Dropdown,
-} from "semantic-ui-react";
+import { Icon, Table, Button, Modal, Input, Dropdown } from "semantic-ui-react";
 import "./EntriesPageStyles.css";
 import { useHistory } from "react-router";
 
@@ -48,6 +40,7 @@ function EntriesPage({ match }) {
             }),
           }
         );
+        window.location.reload();
       } catch (err) {
         console.log(err.message);
       }
@@ -78,8 +71,6 @@ function EntriesPage({ match }) {
   useEffect(() => {
     getbirdEntries();
   }, []);
-
-  console.log(entry);
 
   //Server to delete entry
   //Only allow to delete if there is more than one entry --> so there must be at least an entry in every bird
@@ -140,7 +131,7 @@ function EntriesPage({ match }) {
 
   const setUpdate = () => {
     onUpdate();
-    history.push("/");
+    window.location.reload();
   };
 
   console.log(entry);
@@ -149,7 +140,7 @@ function EntriesPage({ match }) {
     return (
       <Table.Body key={details.entry_id} style={{ textAlign: "center" }}>
         <Table.Row className="EntriesTableRow">
-          <Table.Cell>{details.created_at}</Table.Cell>
+          <Table.Cell className="test">{details.created_at}</Table.Cell>
           <Table.Cell>{details.weight}</Table.Cell>
           <Table.Cell>
             <Icon
@@ -182,35 +173,20 @@ function EntriesPage({ match }) {
   return (
     <div className="EntriesContainer">
       <Nav />
-      <Table celled className="EntriesTable">
-        <Table.Header>
-          <Table.Row style={{ textAlign: "center" }}>
-            <Table.HeaderCell>TimeStamp</Table.HeaderCell>
-            <Table.HeaderCell>Weight</Table.HeaderCell>
-            <Table.HeaderCell>Edit</Table.HeaderCell>
-            <Table.HeaderCell>Delete</Table.HeaderCell>
-          </Table.Row>
-        </Table.Header>
-        {entries}
-        <Table.Footer>
-          <Table.Row>
-            <Table.HeaderCell colSpan="4">
-              <Menu floated="right" pagination>
-                <Menu.Item as="a" icon>
-                  <Icon name="chevron left" />
-                </Menu.Item>
-                <Menu.Item as="a">1</Menu.Item>
-                <Menu.Item as="a">2</Menu.Item>
-                <Menu.Item as="a">3</Menu.Item>
-                <Menu.Item as="a">4</Menu.Item>
-                <Menu.Item as="a" icon>
-                  <Icon name="chevron right" />
-                </Menu.Item>
-              </Menu>
-            </Table.HeaderCell>
-          </Table.Row>
-        </Table.Footer>
-      </Table>
+      <div className="EntriesWrapper">
+        <Table celled className="EntriesTable">
+          <Table.Header>
+            <Table.Row style={{ textAlign: "center"}}>
+              <Table.HeaderCell>TimeStamp</Table.HeaderCell>
+              <Table.HeaderCell>Weight</Table.HeaderCell>
+              <Table.HeaderCell>Edit</Table.HeaderCell>
+              <Table.HeaderCell>Delete</Table.HeaderCell>
+            </Table.Row>
+          </Table.Header>
+          {entries}
+          <Table.Footer />
+        </Table>
+      </div>
 
       {/* Modal To Add New Entry*/}
       <Modal
