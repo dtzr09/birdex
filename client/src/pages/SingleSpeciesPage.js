@@ -37,7 +37,7 @@ function SingleSpeciesPage({ match }) {
   useEffect(() => {
     const getFamily = async () => {
       try {
-        const response = await fetch(`/species/${match.params.name}`);
+        const response = await fetch(`/api/species/${match.params.name}`);
         const jsonData = await response.json();
         setFamily(jsonData[0]);
       } catch (err) {
@@ -47,13 +47,13 @@ function SingleSpeciesPage({ match }) {
     getFamily();
     setNewDescription(family.speciesdesc);
     setNewImg(family.speciesimg);
-  }, []);
+  }, [match.params.name]);
 
   //FOR DELETING SPECIES
   const deleteSpecies = async (id) => {
     console.log(id);
     try {
-      const deleteSpecies = await fetch(`/species/${match.params.name}`, {
+      const deleteSpecies = await fetch(`/api/species/${match.params.name}`, {
         method: "DELETE",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -71,7 +71,7 @@ function SingleSpeciesPage({ match }) {
   //Upon submiting push it to the database and reload
   const onSubmitUpdate = async () => {
     try {
-      const response = await fetch(`/species/${family.speciesname}`, {
+      const response = await fetch(`/api/species/${family.speciesname}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -96,7 +96,7 @@ function SingleSpeciesPage({ match }) {
   useEffect(() => {
     const getmembers = async () => {
       try {
-        const response = await fetch(`/species/${family.speciesname}`);
+        const response = await fetch(`/api/species/${family.speciesname}`);
         const jsonData = await response.json();
         setallmembers(jsonData);
       } catch (err) {
@@ -124,7 +124,7 @@ function SingleSpeciesPage({ match }) {
 
   const HandleBird = async () => {
     try {
-      const response = await fetch(`/species/${family.speciesname}`, {
+      const response = await fetch(`/api/species/${family.speciesname}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
