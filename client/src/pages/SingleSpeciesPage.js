@@ -47,7 +47,7 @@ function SingleSpeciesPage({ match }) {
     getFamily();
     setNewDescription(family.speciesdesc);
     setNewImg(family.speciesimg);
-  }, [match.params.name]);
+  }, []);
 
   //FOR DELETING SPECIES
   const deleteSpecies = async (id) => {
