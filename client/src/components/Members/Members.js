@@ -24,7 +24,7 @@ function Members(id) {
   }, []);
 
   const members = [...new Set(allmembers.map(birds => birds))]
-
+  console.log(members)
   //MUST INCLUDE RETURN IF NOT NTH WILL BE SHOWN
   const data = members.map((bird) => {
     return (
@@ -32,7 +32,7 @@ function Members(id) {
         className="Card--birdStyle" 
         key={bird.birdsid}
         as={Link}
-        to={`/birds/${bird.birdsname}/${bird.birdsid}`}
+        to={`/birds/${bird.birdsspecies}}/${bird.birdsname}/${bird.birdsid}`}
         >
         <div className="img--wrapper">
           <Image 

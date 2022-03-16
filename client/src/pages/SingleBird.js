@@ -32,15 +32,13 @@ function SingleBird({ match }) {
 
   const [Bird, setBird] = useState(""); // One item needed to render the images
   const [details, setdetails] = useState([]); //all items needed to do data analysis
-  console.log(Bird);
-  console.log(details);
 
   //FETCHING SINGLE BIRD DATA BASE ON ITS NICKNAME AND UUID
   useEffect(() => {
     const getbird = async () => {
       try {
         const response = await fetch(
-          `/birds/${match.params.name}/${match.params.birdsid}`
+          `/birds/${match.params.species}/${match.params.name}/${match.params.birdsid}`
         );
         const jsonData = await response.json();
         setBird(jsonData[0]);

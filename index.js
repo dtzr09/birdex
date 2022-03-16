@@ -18,7 +18,10 @@ app.get("/species", async (req, res) => {
     const allspecies = await pool.query(
       "SELECT * FROM speciesdata ORDER BY id ASC"
     );
-    
+
+    res.header("Cache-Control", "no-cache, no-store, must-revalidate");
+    res.header("Pragma", "no-cache");
+    res.header("Expires", 0);    
     res.json(allspecies.rows);
   } catch (err) {
     console.log(err.message);
@@ -61,6 +64,10 @@ app.get("/species/:name", async (req, res) => {
   try {
     const { name } = req.params;
     const familyId = await pool.query(advance_query, [name]);
+
+    res.header("Cache-Control", "no-cache, no-store, must-revalidate");
+    res.header("Pragma", "no-cache");
+    res.header("Expires", 0);
 
     res.json(familyId.rows);
   } catch (err) {
@@ -123,12 +130,13 @@ advance_query3 = `SELECT
                   b.img AS bird_image
                   FROM entries AS e
                   LEFT JOIN birdsdata AS b on e.bird_name = b.name and e.bird_id = b.id  
-                  WHERE e.bird_name = $1 and b.id = $2`;
-app.get("/birds/:name/:id", async (req, res) => {
+                  WHERE e.bird_name = $1 and b.id = $2 and e.species_name= $3`;
+app.get("/birds/:species/:name/:id", async (req, res) => {
   try {
     const birdsdata = await pool.query(advance_query3, [
       req.params.name,
       req.params.id,
+      req.params.species
     ]);
 
     res.header("Cache-Control", "no-cache, no-store, must-revalidate");
