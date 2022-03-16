@@ -13,14 +13,12 @@ require("dotenv").config();
 
 //SPECIES LEVEL
 //getting all species
-app.get("/api/species", async (req, res) => {
+app.get("/species", async (req, res) => {
   try {
     const allspecies = await pool.query(
       "SELECT * FROM speciesdata ORDER BY id ASC"
     );
-    res.header("Cache-Control", "no-cache, no-store, must-revalidate");
-    res.header("Pragma", "no-cache");
-    res.header("Expires", 0);
+    
     res.json(allspecies.rows);
   } catch (err) {
     console.log(err.message);
@@ -63,10 +61,6 @@ app.get("/species/:name", async (req, res) => {
   try {
     const { name } = req.params;
     const familyId = await pool.query(advance_query, [name]);
-
-    res.header("Cache-Control", "no-cache, no-store, must-revalidate");
-    res.header("Pragma", "no-cache");
-    res.header("Expires", 0);
 
     res.json(familyId.rows);
   } catch (err) {
