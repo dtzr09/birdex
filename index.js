@@ -13,7 +13,7 @@ require("dotenv").config();
 
 //SPECIES LEVEL
 //getting all species
-app.get("/api/species", async (req, res) => {
+app.get("/species", async (req, res) => {
   try {
     const allspecies = await pool.query(
       "SELECT * FROM speciesdata ORDER BY id ASC"
