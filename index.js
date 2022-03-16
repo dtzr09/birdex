@@ -13,7 +13,7 @@ require("dotenv").config();
 
 //SPECIES LEVEL
 //getting all species
-app.get("/species", async (req, res) => {
+app.get("api/species", async (req, res) => {
   try {
     const allspecies = await pool.query(
       "SELECT * FROM speciesdata ORDER BY id ASC"
@@ -29,7 +29,7 @@ app.get("/species", async (req, res) => {
 
 //adding species
 //POST
-app.post("/species", async (req, res) => {
+app.post("api/species", async (req, res) => {
   try {
     const { name, description, img } = req.body;
     const newSpecies = await pool.query(
@@ -59,7 +59,7 @@ advance_query = `SELECT
   LEFT JOIN birdsdata AS b ON s.id = b.species_id 
   WHERE s.name = $1`;
 
-app.get("/species/:name", async (req, res) => {
+app.get("api/species/:name", async (req, res) => {
   try {
     const { name } = req.params;
     const familyId = await pool.query(advance_query, [name]);
@@ -76,7 +76,7 @@ app.get("/species/:name", async (req, res) => {
 
 //deleting species
 //DELETE
-app.delete("/species/:name", async (req, res) => {
+app.delete("api/species/:name", async (req, res) => {
   try {
     const { id } = req.body;
     const deletespecies = await pool.query(
@@ -95,7 +95,7 @@ app.delete("/species/:name", async (req, res) => {
 
 //updating species
 //PUT
-app.put("/species/:name", async (req, res) => {
+app.put("api/species/:name", async (req, res) => {
   try {
     const { name } = req.params;
     const { description, img } = req.body;
@@ -130,7 +130,7 @@ advance_query3 = `SELECT
                   FROM entries AS e
                   LEFT JOIN birdsdata AS b on e.bird_name = b.name and e.bird_id = b.id  
                   WHERE e.bird_name = $1 and b.id = $2`;
-app.get("/birds/:name/:id", async (req, res) => {
+app.get("api/birds/:name/:id", async (req, res) => {
   try {
     const birdsdata = await pool.query(advance_query3, [
       req.params.name,
@@ -148,7 +148,7 @@ app.get("/birds/:name/:id", async (req, res) => {
 });
 
 // Fetching individual bird entries base on name and species
-app.get("/birds/:name/:id/:species_name/entries", async (req, res) => {
+app.get("api/birds/:name/:id/:species_name/entries", async (req, res) => {
   try {
     const { name, species_name } = req.params;
     const birdEntries = await pool.query(
@@ -178,7 +178,7 @@ add_bird_query = `WITH ins AS (
                   SELECT name, species_id, species, $6, created_at, id
                   FROM ins;
                 `;
-app.post("/species/:name", async (req, res) => {
+app.post("api/species/:name", async (req, res) => {
   try {
     const { name } = req.params;
     const { bird_name, img, created_at, species_id, weight } = req.body;
