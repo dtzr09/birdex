@@ -141,7 +141,7 @@ function EntriesPage({ match }) {
   const entries = entry.map((details) => {
     return (
       <Table.Body key={details.entry_id} style={{ textAlign: "center" }}>
-        <Table.Row className="EntriesTableRow">
+        <Table.Row>
           <Table.Cell>{details.created_at}</Table.Cell>
           <Table.Cell>{details.weight}</Table.Cell>
           <Table.Cell>
@@ -175,14 +175,12 @@ function EntriesPage({ match }) {
   return (
     <div className="EntriesContainer">
       <Nav />
-      <div className="EntriesWrapper">
-        <Table celled className="EntriesTable">
+      <Table celled className="EntriesTable">
+        <div>
           <Table.Header>
             <Table.Row
               style={{
                 textAlign: "center",
-                position: "fixed",
-                maxWidth: "898px",
               }}
             >
               <Table.HeaderCell>TimeStamp</Table.HeaderCell>
@@ -191,10 +189,11 @@ function EntriesPage({ match }) {
               <Table.HeaderCell>Delete</Table.HeaderCell>
             </Table.Row>
           </Table.Header>
-          {entries}
-          <Table.Footer />
-        </Table>
-      </div>
+        </div>
+        <div className="EntriesWrapper">{entries}</div>
+
+        <Table.Footer />
+      </Table>
 
       {/* Modal To Add New Entry*/}
       <Modal
