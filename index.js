@@ -280,7 +280,7 @@ if (process.env.NODE_ENV === "production") {
   //npm run build
   app.use(express.static(path.join(__dirname, "client/build")));
 
-  app.get("*", (req, res) => {
+  app.get("/*", (req, res) => {
     res.sendFile(path.join(__dirname, "client/build/index.html"));
   });
 }
